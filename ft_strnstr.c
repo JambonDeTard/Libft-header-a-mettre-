@@ -1,20 +1,41 @@
-char	*ft_strnstr(const char *big, const char *little, size_t ln)
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_strnstr.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: avillard <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/11/11 11:16:33 by avillard          #+#    #+#             */
+/*   Updated: 2022/11/11 11:24:31 by avillard         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "libft.h"
+
+char	*ft_strnstr(const char *big, const char *little, size_t len)
 {
 	size_t		i;
 	size_t		j;
+	size_t		k;
+	int			found;
 
-	i = 0;
-	j = 0;
-	while (big[i] && (i < ln))
+	i = -1;
+	found = 1;
+	if (!ft_strlen(little))
+		return ((char *)big);
+	while (*(big + ++i) && i < len)
 	{
-		while ((big[i + j] == little[j]) && little[j] && ((i + j) < ln))
-			j += 1;
-		if (!little[j])
-			return ((char *)&big[i]);
 		j = 0;
-		i += 1;
+		if (*(big + i) == *(little + 0))
+		{
+			k = i;
+			found = 1;
+			while (*(big + k) && *(little + j) && j < len && k < len)
+				if (*(big + k++) != *(little + j++))
+					found = 0;
+			if (found && !*(little + j))
+				return ((char *)big + i);
+		}
 	}
-	if (!little[0])
-		return ((char *)&big[i]);
 	return (NULL);
 }

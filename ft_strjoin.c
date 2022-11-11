@@ -1,29 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_substr.c                                        :+:      :+:    :+:   */
+/*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: avillard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/08 10:44:07 by avillard          #+#    #+#             */
-/*   Updated: 2022/11/08 10:44:31 by avillard         ###   ########.fr       */
+/*   Created: 2022/11/11 11:15:00 by avillard          #+#    #+#             */
+/*   Updated: 2022/11/11 11:15:02 by avillard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_substr(char const *s, unsigned int start, size_t len)
+char	*ft_strjoin(char const *s1, char const *s2)
 {
 	char	*new_str;
 	size_t	i;
+	size_t	j;
+	size_t	s1_len;
+	size_t	s2_len;
 
-	if (!s)
+	if (!s1 || !s2)
 		return (NULL);
-	new_str = ft_strnew(len);
+	s1_len = ft_strlen(s1);
+	s2_len = ft_strlen(s2);
+	new_str = ft_strnew(s1_len + s2_len);
 	if (!new_str)
 		return (NULL);
-	i = 0;
-	while (i < len)
-		*(new_str + i++) = *(s + start++);
+	i = -1;
+	j = -1;
+	while (++i < s1_len)
+		*(new_str + i) = *(s1 + i);
+	while (++j < s2_len)
+		*(new_str + i++) = *(s2 + j);
 	return (new_str);
 }

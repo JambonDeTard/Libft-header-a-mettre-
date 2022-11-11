@@ -1,29 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_substr.c                                        :+:      :+:    :+:   */
+/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: avillard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/08 10:44:07 by avillard          #+#    #+#             */
-/*   Updated: 2022/11/08 10:44:31 by avillard         ###   ########.fr       */
+/*   Created: 2022/11/11 11:14:14 by avillard          #+#    #+#             */
+/*   Updated: 2022/11/11 11:14:17 by avillard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_substr(char const *s, unsigned int start, size_t len)
+void	ft_putnbr_fd(int n, int fd)
 {
-	char	*new_str;
-	size_t	i;
-
-	if (!s)
-		return (NULL);
-	new_str = ft_strnew(len);
-	if (!new_str)
-		return (NULL);
-	i = 0;
-	while (i < len)
-		*(new_str + i++) = *(s + start++);
-	return (new_str);
+	if (n < 0)
+	{
+		ft_putchar_fd('-', fd);
+		n = -n;
+	}
+	if (n == -2147483648)
+	{
+		ft_putchar_fd('2', fd);
+		n %= 1000000000;
+		n = -n;
+	}
+	if (n >= 10)
+	{
+		ft_putnbr_fd(n / 10, fd);
+		ft_putnbr_fd(n % 10, fd);
+	}
+	else
+		ft_putchar_fd(n + '0', fd);
 }
